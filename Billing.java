@@ -23,14 +23,14 @@ public class Billing extends javax.swing.JFrame {
     setSize(800, 600);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
-    setLayout(new BorderLayout()); // for placing panels in top, center, bottom
+    setLayout(new BorderLayout());
 
     // Call all the panel initializer methods
-    initSelectionPanel();       // 🔽 Buyer & Product dropdowns + Quantity field
-    //initBillTablePanel();       // 🧾 Table to show the bill
-    initButtonPanel();          // 🟢 Make Bill + 🖨️ Print Bill buttons
+    initSelectionPanel();       
+    //initBillTablePanel();      
+    initButtonPanel();          
     initBillTablePanel();
-    loadSavedBills(); // 👈 This line reloads bills from database
+    loadSavedBills(); 
     
 
     }
@@ -38,7 +38,7 @@ public class Billing extends javax.swing.JFrame {
     
     private void initSelectionPanel() {
     JPanel selectionPanel = new JPanel();
-    selectionPanel.setBackground(new Color(230, 255, 250)); // soft mint green
+    selectionPanel.setBackground(new Color(230, 255, 250)); 
     selectionPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 10));
 
     JLabel lblBuyer = new JLabel("Buyer:");
@@ -81,7 +81,7 @@ public class Billing extends javax.swing.JFrame {
         e.printStackTrace();
     }
 
-    // 👉 Add components to panel
+    //  Add components to panel
     selectionPanel.add(lblBuyer);
     selectionPanel.add(cbBuyers);
     selectionPanel.add(lblProduct);
@@ -190,7 +190,7 @@ private void initBillTablePanel() {
         // ✅ Connect once and reuse
         Connection con = DBConnection.getConnection();
 
-        // 🔎 Step 1: Check stock
+        // Check stock
         PreparedStatement checkStock = con.prepareStatement("SELECT quantity, price FROM products WHERE name = ?");
         checkStock.setString(1, productName);
         ResultSet rs = checkStock.executeQuery();
@@ -228,7 +228,7 @@ private void initBillTablePanel() {
 
             con2.close();
 
-            // 🔻 Step 2: Reduce stock
+            // 🔻Reduce stock
             PreparedStatement updateStock = con.prepareStatement(
                 "UPDATE products SET quantity = quantity - ? WHERE name = ?"
             );
@@ -238,7 +238,7 @@ private void initBillTablePanel() {
 
             con.close();
 
-            // 🖥️ Show in UI table
+            // Show in UI table
             DefaultTableModel model = (DefaultTableModel) billTable.getModel();
             model.addRow(new Object[]{productName, quantity, unitPrice, total});
             tfQuantity.setText("");
@@ -327,7 +327,7 @@ private void initBillTablePanel() {
 }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+   
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -344,7 +344,7 @@ private void initBillTablePanel() {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     /**
      * @param args the command line arguments
